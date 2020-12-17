@@ -1,0 +1,50 @@
+npx create-react-app 4-frontend
+cd 4-frontend
+
+(Optional)
+npm run test
+npm run build
+npm run start
+
+(Docker commands)
+(Better delete build and node_modules before this)
+docker build -f Dockerfile.dev .
+docker run -it -p 3000:3000 CONTAINER_ID
+
+(Docker Volumes to avoid manual re-building an image for every change we make in the src files)
+(Only works in Git Bash on Windows because of pwd)
+docker run -p 3000:3000 -v /app/node_modules -v$(pwd):/app <image_id>
+
+(Docker Compose making it easier)
+docker-compose up
+
+(If want to stop, rebuild and run)
+docker-compose down && docker-compose up --build
+
+(############Tests#########)
+
+(Overriding the startup command)
+(Executing tests)
+(This will create a new container for test and hence Volume won't work)
+docker run -it <image_id> npm run test
+
+(Instead write this on a running container (already configured Volumes) for live updating test)
+docker exec -it <container_id> npm run test
+
+(We also tried using two services, tests and web using Docker Compose but that had its shortcomings)
+(So here we will try to resolve that shortcoming by docker attach)
+(We are attaching to the stdin, stdout, stderr of the primary process (PID=1) inside that already running container)
+(So docker attaching makes it interactive for us!)
+(This command won't work as our primary process isn't the one executing test, it is in fact the npm command)
+(Test is actually a secondary process started by npm)
+docker attach <container_id>
+(To check for yourself try the below code)
+docker exec -it <container_id> sh
+ps (Inside the shell to find details of processes running inside that container)
+
+(############Production#########)
+
+docker build .
+(nginx is production appropriate)
+(80 is default port of nginx)
+docker run -p 8080:80 <image_id>
