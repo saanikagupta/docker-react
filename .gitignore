@@ -5,9 +5,6 @@
 /.pnp
 .pnp.js
 
-# required in development workflow only
-docker-compose.yml
-
 # testing
 /coverage
 
