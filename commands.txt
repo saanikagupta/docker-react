@@ -21,7 +21,7 @@ docker-compose up
 (If want to stop, rebuild and run)
 docker-compose down && docker-compose up --build
 
-(############Tests#########)
+(############ Tests #########)
 
 (Overriding the startup command)
 (Executing tests)
@@ -32,7 +32,9 @@ docker run -it <image_id> npm run test
 docker exec -it <container_id> npm run test
 
 (We also tried using two services, tests and web using Docker Compose but that had its shortcomings)
-(So here we will try to resolve that shortcoming by docker attach)
+docker-compose up
+
+(Here we will try to resolve the shortcomings of docker compose by docker attach)
 (We are attaching to the stdin, stdout, stderr of the primary process (PID=1) inside that already running container)
 (So docker attaching makes it interactive for us!)
 (This command won't work as our primary process isn't the one executing test, it is in fact the npm command)
@@ -42,7 +44,7 @@ docker attach <container_id>
 docker exec -it <container_id> sh
 ps (Inside the shell to find details of processes running inside that container)
 
-(############Production#########)
+(############ Production #########)
 
 docker build .
 (nginx is production appropriate)
