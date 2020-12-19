@@ -29,3 +29,5 @@ winpty.exe.stackdump
 
 .eslintcache
 winpty.exe.stackdump
+
+docker-compose.yml
