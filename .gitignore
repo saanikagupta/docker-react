@@ -5,6 +5,9 @@
 /.pnp
 .pnp.js
 
+# required in development workflow only
+docker-compose.yml
+
 # testing
 /coverage
 
@@ -29,5 +32,3 @@ winpty.exe.stackdump
 
 .eslintcache
 winpty.exe.stackdump
-
-docker-compose.yml
